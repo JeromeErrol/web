@@ -24,3 +24,5 @@ sync
 .settings
 .classpath
 .project
+mvnw
+mvnw.cmd
