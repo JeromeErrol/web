@@ -26,3 +26,4 @@ sync
 .project
 mvnw
 mvnw.cmd
+.mvn
