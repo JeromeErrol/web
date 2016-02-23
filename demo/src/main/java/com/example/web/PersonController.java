@@ -3,7 +3,7 @@ package com.example.web;
 
 import com.example.domain.Person;
 import com.example.domain.PersonDoesNotExistException;
-import com.example.domain.PersonRepository;
+import com.example.service.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
@@ -20,30 +20,23 @@ public class PersonController {
     @Autowired
     PersonResourceAssembler personResourceAssembler;
 
-    @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, value = "/{name}")
     @ResponseStatus(value = HttpStatus.CREATED)
-    Resource<Person> createPerson(){
-        Person person = personRepository.create();
+    Resource<Person> create(@PathVariable String name){
+        Person person = new Person(name);
+        personRepository.save(person);
         return personResourceAssembler.toResource(person);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "{personId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    Resource<Person> showPerson(@PathVariable Integer personId) throws PersonDoesNotExistException {
-        Person person = personRepository.get(personId);
+    Resource<Person> select(@PathVariable Long personId) throws PersonDoesNotExistException {
+        Person person = personRepository.findOne(personId);
         return personResourceAssembler.toResource(person);
-    }
-
-    @RequestMapping(method = RequestMethod.PUT, value = "{personId}/friends/{friendId}")
-    @ResponseStatus(value = HttpStatus.OK)
-    void addFriend(@PathVariable Integer personId, @PathVariable Integer friendId) throws PersonDoesNotExistException {
-        Person person = personRepository.get(personId);
-        Person friend = personRepository.get(friendId);
-        person.getFriends().add(friend);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{personId}")
     @ResponseStatus(HttpStatus.OK)
-    void destroyPerson(@PathVariable Integer personId){
-        personRepository.remove(personId);
+    void destroyPerson(@PathVariable Long personId){
+        personRepository.delete(personId);
     }
 }

@@ -1,18 +1,28 @@
 package com.example.domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
+
+@NoArgsConstructor
+@Entity
 public class Person {
-    @Getter
-    private int id;
-    @Getter
-    private List<Person> friends;
 
-    public Person(int id){
-        this.id = id;
-        friends = new ArrayList<>();
+    @Id
+    @GeneratedValue
+    @Getter
+    private Long id;
+
+    @Getter
+    @Column(nullable = false)
+    private String name;
+
+    public Person(String name) {
+        this.name = name;
     }
 }

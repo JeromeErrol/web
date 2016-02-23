@@ -12,7 +12,6 @@ public class PersonResourceAssembler implements ResourceAssembler<Person, Resour
     @Override
     public Resource<Person> toResource(Person person) {
         Resource<Person> resource = new Resource<Person>(person);
-        resource.add(linkTo(PersonController.class).slash(person.getId()).slash("friends").withRel("friends"));
         resource.add(linkTo(PersonController.class).slash(person.getId()).withSelfRel());
         return resource;
     }
