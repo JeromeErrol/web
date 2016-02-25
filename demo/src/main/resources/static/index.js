@@ -13,11 +13,13 @@ var view = {
     entriesContrainer:null,
     createEntryBtn:null,
     entryInputTxt:null,
+    tagsInputTxt:null,
 
     init : function(){
         view.entriesContrainer = $("#entriesContrainer");
         view.entryInputTxt = $("#entryInputTxt");
         view.createEntryBtn = $("#createEntryBtn");
+        view.tagsInputTxt = $("#tagsInputTxt");
         view.createEntryBtn.click(view.createEntryBtnClicked);
     },
 
@@ -32,13 +34,17 @@ var view = {
     },
 
     createEntryBtnClicked:function(e){
-        service.createEntry(view.getEntryText(), function(entity){
+        service.createEntry(view.getEntryText(), view.getTags(), function(entity){
 
         });
     },
 
     getEntryText :function(){
         return view.entryInputTxt.val();
+    },
+
+    getTags : function(){
+        return view.tagsInputTxt.val().split(" ");
     }
 };
 
@@ -49,12 +55,15 @@ var service = {
         get("/users/" + userId + "/entries", callback);
     },
 
-    createEntry:function(text, callback){
-        var entry = {
-            "text" : text,
-            "hash" : null,
-            "userId" : userId
+    createEntry:function(text, tags, callback){
+        var json = {
+            entry:{
+                "text" : text,
+                "hash" : null,
+                "userId" : userId
+            },
+            tags: tags
         }
-        post(entry, "/entries", callback);
+        post(json, "/entries", callback);
     }
 };
