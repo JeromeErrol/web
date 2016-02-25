@@ -1,7 +1,6 @@
 package com.example.domain;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
@@ -9,22 +8,27 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-
-@NoArgsConstructor
 @Entity
-public class Person {
+public class Entry {
 
     @Id
     @GeneratedValue
     @Getter
+    @Column
     private Long id;
 
-    @Setter
     @Getter
-    @Column(nullable = false)
-    private String name;
+    @Setter
+    @Column
+    private String text;
 
-    public Person(String name) {
-        this.name = name;
-    }
+    @Getter
+    @Setter
+    @Column
+    private String hash;
+
+    @Getter
+    @Setter
+    @Column
+    private Long userId;
 }
