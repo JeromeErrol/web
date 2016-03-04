@@ -8,15 +8,14 @@ import javax.annotation.PostConstruct;
 @SpringBootApplication
 public class SpringParseApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SpringParseApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SpringParseApplication.class, args);
+    }
 
 
+    @PostConstruct
+    public void postConstruct() {
 
-	@PostConstruct
-	public void postConstruct(){
 
-
-	}
+    }
 }

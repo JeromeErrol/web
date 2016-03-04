@@ -50,4 +50,10 @@ public class SpringParseApplicationTests {
         String falseText = parse(true, String.class);
         assertEquals("false", falseText);
     }
+
+    @Test
+    public void parseFloatToDouble(){
+        double val = parse(34.452F, Double.class);
+        assertEquals(34.452D, val);
+    }
 }
