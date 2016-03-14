@@ -1,17 +1,13 @@
-package com.example.web;
+package com.market.web;
 
 
-import com.example.domain.Entry;
-import com.example.domain.EntryRepository;
-import com.example.domain.User;
-import com.example.domain.UserRepository;
+import com.market.domain.User;
+import com.market.domain.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -23,18 +19,11 @@ public class UserController {
     @Autowired
     UserResourceAssembler personResourceAssembler;
 
-    @Autowired
-    EntryRepository entryRepository;
 
     @RequestMapping(method = RequestMethod.GET, value = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
     Resource<User> select(@PathVariable Long userId) {
         User user = userRepository.findOne(userId);
         return personResourceAssembler.toResource(user);
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/{userId}/entries", produces = MediaType.APPLICATION_JSON_VALUE)
-    List<Entry> fetchEntries(@PathVariable Long userId) {
-        return entryRepository.findByUserId(userId);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/{userId}/{name}")

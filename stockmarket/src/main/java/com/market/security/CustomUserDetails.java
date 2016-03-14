@@ -1,6 +1,6 @@
-package com.example.security;
+package com.market.security;
 
-import com.example.domain.User;
+import com.market.domain.User;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;

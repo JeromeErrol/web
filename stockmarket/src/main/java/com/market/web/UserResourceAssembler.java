@@ -1,6 +1,6 @@
-package com.example.web;
+package com.market.web;
 
-import com.example.domain.User;
+import com.market.domain.User;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;
 import org.springframework.stereotype.Component;

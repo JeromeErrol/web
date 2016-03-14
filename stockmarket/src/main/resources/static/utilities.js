@@ -1,10 +1,10 @@
-function post(data, url, callback) {
+function post(url, data, callback) {
     $.ajax({
         type: "POST",
         url: url,
         data: JSON.stringify(data),
         dataType: 'json',
-        contentType: 'application/json',
+        contentType: 'application/json; charset=utf-8',
         success: callback
     });
 }

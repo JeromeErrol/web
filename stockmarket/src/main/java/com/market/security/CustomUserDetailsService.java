@@ -1,7 +1,7 @@
-package com.example.security;
+package com.market.security;
 
-import com.example.domain.User;
-import com.example.domain.UserRepository;
+import com.market.domain.User;
+import com.market.domain.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
