@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Blob;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -37,5 +38,10 @@ public class Stock {
     @Getter
     @Setter
     private Category category;
+
+    @ManyToOne
+    @Getter
+    @Setter
+    private Image image;
 }
 

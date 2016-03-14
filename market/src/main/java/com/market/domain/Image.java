@@ -1,4 +1,4 @@
-package com.example.domain;
+package com.market.domain;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,21 +9,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Entry {
+public class Image {
 
     @Id
     @GeneratedValue
     @Getter
-    @Column
+    @Setter
     private Long id;
 
+    @Column
     @Getter
     @Setter
-    @Column
-    private String text;
-
-    @Getter
-    @Setter
-    @Column
-    private Long userId;
+    private byte[] image;
 }

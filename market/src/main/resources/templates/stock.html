@@ -4,7 +4,7 @@
     <ul class="list-group" id="categories">
     </ul>
 
-    <table class="table table-striped" id="stockTable">
+    <table class="table table-striped" id="stock-table">
         <thead>
         <tr>
             <th>Title</th>
@@ -12,9 +12,10 @@
             <th>Discount</th>
         </tr>
         </thead>
-        <tbody id="stockTableBody">
+        <tbody id="stock-table-body">
         </tbody>
     </table>
 
     <div th:include="modals/create-stock"></div>
+    <div th:include="modals/edit-stock"></div>
 </div>
