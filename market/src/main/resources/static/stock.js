@@ -7,6 +7,7 @@ var Stocks = {
 
     model : {
         stocks : { },
+
         categories : { },
 
         getStock : function(id){
@@ -40,13 +41,6 @@ var Stocks = {
             };
         },
 
-        drawCategories : function(categories){
-            for(var index in categories){
-                var category = categories[index];
-                Stocks.view.addCategory(category);
-            }
-        },
-
         drawStocks : function(stocks, onclick) {
             $("#stock-table-body").empty();
             $("#create-stock-category").empty();
@@ -78,6 +72,8 @@ var Stocks = {
             Stocks.controller.fetchStock();
             Stocks.controller.fetchCategory();
             $("#create-stock-submit").click(Stocks.controller.createStockBtnClicked);
+            $("#edit-stock-delete").click(Stocks.controller.deleteStockBtnClicked);
+            $("#edit-stock-save").click(Stocks.controller.updateStockBtnClicked);
         },
 
         fetchStock : function(){
@@ -95,14 +91,25 @@ var Stocks = {
 
         fetchCategory : function(){
             get("/categories", function(categories){
+                $("#create-stock-category").empty();
                 $("#edit-stock-category").empty();
                 for(var index in categories){
                     var category = categories[index];
-                    var option = $("<option value='" + category.id + "'>" + category.title + "</option>");
-                    $("#create-stock-category").append(option);
-                    $("#edit-stock-category").append(option);
+                    $("#create-stock-category").append(dynamic.option(category.id, category.title));
+                    $("#edit-stock-category").append(dynamic.option(category.id, category.title));
+
+                    $("#filter-stock-category").append(dynamic.label(category.title, ""));
+                    var checkbox = dynamic.checkbox("category-filter", category.id);
+                    checkbox.change(Stocks.controller.categoryFilterCheckboxChanged);
+                    $("#filter-stock-category").append(checkbox);
                 }
             });
+        },
+
+        categoryFilterCheckboxChanged: function(){
+            var checked = $(this).is(":checked");
+
+            //
         },
 
         createStockBtnClicked : function(){
@@ -110,12 +117,43 @@ var Stocks = {
             Stocks.service.create(newStock, function(stockCreated){
                 var stockRow = Stocks.view.addStock(stockCreated);
             });
+        },
+
+        deleteStockBtnClicked : function(){
+            var stock = {
+                id : $("#edit-stock").data("stock-id")
+            }
+
+            Stocks.service.delete(stock, function(){
+
+            });
+        },
+
+        updateStockBtnClicked : function(){
+            var stock = {
+                id : $("#edit-stock").data("stock-id"),
+                title : $("#edit-stock-title").val(),
+                price : $("#edit-stock-price").val(),
+                discount : $("#edit-stock-discount").val(),
+                category : parseInt($("#edit-stock-category").val())
+            }
+            Stocks.service.update(stock, function(){
+                // updated
+            });
         }
     },
 
     service : {
         create : function(stock, callback){
             post("/stocks", stock, callback);
+        },
+
+        delete : function(stock, callback){
+            doDelete("/stocks", stock, callback);
+        },
+
+        update : function(stock, callback){
+            put("/stocks", stock, callback);
         }
     }
 }

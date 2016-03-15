@@ -1,21 +1,19 @@
 <div>
-    <h1>Stock</h1>
+    <header>
+        <h1>Stocks</h1>
+    </header>
 
-    <ul class="list-group" id="categories">
-    </ul>
+    <nav>
+        <div th:include="layout/stock-filter"></div>
+    </nav>
 
-    <table class="table table-striped" id="stock-table">
-        <thead>
-        <tr>
-            <th>Title</th>
-            <th>Price</th>
-            <th>Discount</th>
-        </tr>
-        </thead>
-        <tbody id="stock-table-body">
-        </tbody>
-    </table>
-
-    <div th:include="modals/create-stock"></div>
-    <div th:include="modals/edit-stock"></div>
+    <section>
+        <div>
+            <button class="btn btn-default btn-lg"><span class="glyphicon glyphicon-th-list"></span> List</button>
+            <button class="btn btn-default btn-lg"><span class="glyphicon glyphicon-th"></span> Grid</button>
+        </div>
+        <div th:include="tables/stock-table"></div>
+        <div th:include="modals/edit-stock"></div>
+        <div th:include="modals/create-stock"></div>
+    </section>
 </div>

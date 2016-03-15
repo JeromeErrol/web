@@ -9,7 +9,7 @@ function post(url, data, callback) {
     });
 }
 
-function put(data, url, callback) {
+function put(url, data, callback) {
     $.ajax({
         type: "PUT",
         url: url,
@@ -30,7 +30,7 @@ function get(url, callback) {
     });
 }
 
-function doDelete(data, url, callback) {
+function doDelete(url, data, callback) {
     $.ajax({
         type: "DELETE",
         url: url,
@@ -39,4 +39,19 @@ function doDelete(data, url, callback) {
         contentType: 'application/json',
         success: callback
     });
+}
+
+
+var dynamic = {
+    option : function(value, text){
+        return $("<option value='" + value + "'>" + text + "</option>");
+    },
+
+    checkbox : function(name, value){
+        return $("<input type='checkbox' name='" + name + "' value='" + value + "'/>");
+    },
+
+    label : function(text, forElement){
+        return $("<label for='" + forElement + "'>" + text + "</label>");
+    }
 }

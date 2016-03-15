@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.sql.Blob;
 
 @NoArgsConstructor
@@ -19,16 +21,19 @@ public class Stock {
     @Setter
     private Long id;
 
+    @NotNull
     @Getter
     @Setter
     @Column
     private String title;
 
+    @NotNull
     @Column
     @Getter
     @Setter
     private Double price;
 
+    @Size(min = 0, max = 1)
     @Column
     @Getter
     @Setter
