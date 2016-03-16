@@ -1,6 +1,6 @@
 <div>
     <header>
-        <h1>Stocks</h1>
+        <h1>Store-front</h1>
     </header>
 
     <nav>
@@ -8,11 +8,11 @@
     </nav>
 
     <section>
-        <div>
-            <button class="btn btn-default btn-lg"><span class="glyphicon glyphicon-th-list"></span> List</button>
-            <button class="btn btn-default btn-lg"><span class="glyphicon glyphicon-th"></span> Grid</button>
+        <div class="form-group">
+            <button class="btn btn-default btn-md" id="toggle-view-button"><span class="glyphicon glyphicon-th-list"></span></button>
+            <input type="text" class="form-control" id="filter-stock-title" placeholder="Search"/>
         </div>
-        <div th:include="tables/stock-table"></div>
+        <div th:include="tables/stock-grid"></div>
         <div th:include="modals/edit-stock"></div>
         <div th:include="modals/create-stock"></div>
     </section>

@@ -53,5 +53,16 @@ var dynamic = {
 
     label : function(text, forElement){
         return $("<label for='" + forElement + "'>" + text + "</label>");
+    },
+
+    div : function(id){
+        if(id != null){
+            return $("<div id='" + id + "'/>");
+        }
+        return $("<div/>");
+    },
+
+    span : function(){
+        return $("<span/>");
     }
 }

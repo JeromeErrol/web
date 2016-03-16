@@ -1,9 +1,10 @@
 package com.market.web;
 
 import com.market.domain.Stock;
-import com.market.domain.StockSearchCriteria;
+import com.market.service.stock.StockSearchCriteria;
 import com.market.service.stock.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class StockController {
     @Autowired
     private StockService service;
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     public Resource<Stock> create(@RequestBody Stock stock) {
         return service.save(stock);
@@ -31,11 +32,14 @@ public class StockController {
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
-    public List<Resource<Stock>> search(@RequestBody(required = false) StockSearchCriteria stockSearchCriteria) {
-        if(stockSearchCriteria != null) {
-            return service.search(stockSearchCriteria);
-        }
+    public List<Resource<Stock>> selectAll() {
         return service.getAll();
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    public Page<Stock> search(@RequestBody(required = false) StockSearchCriteria searchCriteria) {
+        return service.search(searchCriteria);
     }
 
     @RequestMapping(method = RequestMethod.PUT)

@@ -8,7 +8,7 @@ var Stocks = {
     model : {
         stocks : { },
 
-        categories : { },
+        categories : [ ],
 
         getStock : function(id){
             for(var index in Stocks.model.stocks){
@@ -43,18 +43,32 @@ var Stocks = {
 
         drawStocks : function(stocks, onclick) {
             $("#stock-table-body").empty();
-            $("#create-stock-category").empty();
+            $("#stock-grid").empty();
+
+
+            var columnsPerRow = 5;
+            var row = null;
+
             for(var index in stocks){
                var stock = stocks[index];
-               var stockRow = Stocks.view.addStock(stock);
+               var stockRow = Stocks.view.addStockToTable(stock);
                stockRow.click(onclick);
                stockRow.hover(function(){
                     $(this).css('cursor','pointer');
                });
+
+
+               if(index % columnsPerRow == 0){
+                    row = $("<div class='row'/>");
+                    $("#stock-grid").append(row);
+               }
+               var col = $('<div class="col-md-4">' + stock.title + '</div>');
+               col.append($("<p>" + stock.price + "</p>"));
+               row.append(col);
             }
         },
 
-        addStock:function(stock){
+        addStockToTable:function(stock){
             var row = $("<tr></tr>");
             row.append($("<td>" + stock.title + "</td>"));
             row.append($("<td>" + stock.price + "</td>"));
@@ -62,11 +76,37 @@ var Stocks = {
             row.data('id', stock.id);
             $("#stock-table-body").append(row);
             return row;
-        }
+        },
     },
 
     // Deals with user input and communication to and from server
     controller : {
+
+        filters : {
+            categories : [ ]
+        },
+
+        applyFilters(){
+
+            var filters = Stocks.controller.filters;
+            var categories = filters.categories;
+
+            var stockSearchCriteria = {
+                price : parseFloat($("#filter-stock-price").val()),
+                discount : parseFloat($("#filter-stock-discount").val()),
+                title: $("#filter-stock-title").val(),
+                categories : [
+
+                ]
+            };
+            for(var index in categories){
+                var category = categories[index];
+                stockSearchCriteria.categories.push(category);
+            }
+            Stocks.service.search(stockSearchCriteria, function(stocks){
+                Stocks.view.drawStocks(stocks, Stocks.controller.stockRowClicked);
+            });
+        },
 
         init : function(){
             Stocks.controller.fetchStock();
@@ -74,6 +114,9 @@ var Stocks = {
             $("#create-stock-submit").click(Stocks.controller.createStockBtnClicked);
             $("#edit-stock-delete").click(Stocks.controller.deleteStockBtnClicked);
             $("#edit-stock-save").click(Stocks.controller.updateStockBtnClicked);
+            $("#filter-stock-price").bind("input", Stocks.controller.applyFilters);
+            $("#filter-stock-discount").bind("input", Stocks.controller.applyFilters);
+            $("#filter-stock-title").bind("input", Stocks.controller.applyFilters);
         },
 
         fetchStock : function(){
@@ -98,18 +141,35 @@ var Stocks = {
                     $("#create-stock-category").append(dynamic.option(category.id, category.title));
                     $("#edit-stock-category").append(dynamic.option(category.id, category.title));
 
-                    $("#filter-stock-category").append(dynamic.label(category.title, ""));
-                    var checkbox = dynamic.checkbox("category-filter", category.id);
+                    var checkbox = dynamic.checkbox("stock-filter-category", category.id);
                     checkbox.change(Stocks.controller.categoryFilterCheckboxChanged);
-                    $("#filter-stock-category").append(checkbox);
+                    var label = dynamic.label(category.title, null);
+                    label.append(checkbox);
+                    $("#filter-stock-category").append($(label));
                 }
             });
         },
 
         categoryFilterCheckboxChanged: function(){
             var checked = $(this).is(":checked");
+            var categoryId = parseInt($(this).val());
+            var categories = Stocks.controller.filters.categories;
 
-            //
+            if(checked){
+                categories.push(categoryId);
+            }else{
+                var index = -1;
+                for(var i = 0; i < categories.length; i++){
+                    if(categories[i] == categoryId){
+                        index = i;
+                        break;
+                    }
+                }
+                if (index > -1) {
+                    categories.splice(index, 1);
+                }
+            }
+            Stocks.controller.applyFilters();
         },
 
         createStockBtnClicked : function(){
@@ -145,7 +205,7 @@ var Stocks = {
 
     service : {
         create : function(stock, callback){
-            post("/stocks", stock, callback);
+            post("/stocks/create", stock, callback);
         },
 
         delete : function(stock, callback){
@@ -154,6 +214,13 @@ var Stocks = {
 
         update : function(stock, callback){
             put("/stocks", stock, callback);
+        },
+
+        search : function(stockSearchCriteria, callback){
+            post("/stocks", stockSearchCriteria, function(stocks){
+                 Stocks.model.stocks = stocks;
+                 Stocks.view.drawStocks(stocks.content, Stocks.controller.stockRowClicked);
+            });
         }
     }
 }
