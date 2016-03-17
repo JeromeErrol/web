@@ -1,6 +1,7 @@
 package com.market.web;
 
 import com.market.domain.Stock;
+import com.market.service.image.ImageService;
 import com.market.service.stock.StockSearchCriteria;
 import com.market.service.stock.StockService;
 import org.springframework.beans.factory.annotation.Autowired;

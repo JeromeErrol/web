@@ -1,5 +1,7 @@
 package com.market.service.stock;
 
+import com.market.domain.Image;
+import com.market.domain.ImageRepository;
 import com.market.domain.Stock;
 import com.market.domain.StockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,9 @@ public class StockService {
 
     @Autowired
     private StockRepository repository;
+
+    @Autowired
+    private ImageRepository imageRepository;
 
     @Autowired
     private StockResourceAssembler resourceAssembler;
@@ -36,6 +41,8 @@ public class StockService {
     }
 
     public Resource<Stock> save(Stock stock) {
+        Image image = imageRepository.save(stock.getImage());
+        stock.setImage(image);
         stock = repository.save(stock);
         return resourceAssembler.toResource(stock);
     }

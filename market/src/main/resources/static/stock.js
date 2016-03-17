@@ -66,7 +66,7 @@ var Stocks = {
                col.append($("<p>" + stock.discount + "</p>"));
                col.append($("<p>" + stock.discount + "</p>"));
                var image = $("<img height=200px/>");
-               image.attr("src", stock.image.bytes);
+               image[0].src = stock.image.base64;
                col.append(image);
 
                row.append(col);
@@ -234,6 +234,8 @@ var Stocks = {
 
     service : {
         create : function(stock, callback){
+            post("/stocks/create", stock, callback);
+
             post("/images/", Stocks.controller.data.createStockImage, function(image){
 
             });
