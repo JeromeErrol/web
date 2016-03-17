@@ -1,7 +1,4 @@
 <div class="container">
-    <!-- Trigger the modal with a button -->
-    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#create-stock">Create</button>
-
     <!-- Modal -->
     <div class="modal fade" id="create-stock" role="dialog">
         <div class="modal-dialog modal-sm">
@@ -30,6 +27,13 @@
                         <label class="form-control" for="create-stock-discount">Discount</label>
                         <input class="form-control" type="number" id="create-stock-discount"/>
                     </div>
+
+                    <div class="input-group">
+                        <label class="form-control" for="create-stock-discount">Image</label>
+                        <img src="" height="200" alt="Image preview" id="create-stock-image-preview"/>
+                        <input class="form-control" type="file" id="create-stock-image"/>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" id="create-stock-submit">Submit</button>

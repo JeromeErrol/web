@@ -34,8 +34,6 @@ public class StockSpecification implements Specification<Stock> {
             predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get(Stock.DISCOUNT), searchCriteria.getDiscount()));
         }
         if( searchCriteria.getTitle() != null){
-            DetachedCriteria criteria = DetachedCriteria.forClass(Stock.class);
-            criteria.add(Restrictions.like(Stock.TITLE, searchCriteria.getTitle(), MatchMode.ANYWHERE));
             predicates.add(criteriaBuilder.like(root.get(Stock.TITLE), "%" + searchCriteria.getTitle() + "%"));
         }
         return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));

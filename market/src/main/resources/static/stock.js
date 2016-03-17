@@ -56,14 +56,19 @@ var Stocks = {
                stockRow.hover(function(){
                     $(this).css('cursor','pointer');
                });
-
-
                if(index % columnsPerRow == 0){
                     row = $("<div class='row'/>");
                     $("#stock-grid").append(row);
                }
-               var col = $('<div class="col-md-4">' + stock.title + '</div>');
+               var col = $('<div class="col-sm-4"/>');
+               col.append($("<p>" + stock.title + "</p>"));
                col.append($("<p>" + stock.price + "</p>"));
+               col.append($("<p>" + stock.discount + "</p>"));
+               col.append($("<p>" + stock.discount + "</p>"));
+               var image = $("<img height=200px/>");
+               image.attr("src", stock.image.bytes);
+               col.append(image);
+
                row.append(col);
             }
         },
@@ -76,7 +81,7 @@ var Stocks = {
             row.data('id', stock.id);
             $("#stock-table-body").append(row);
             return row;
-        },
+        }
     },
 
     // Deals with user input and communication to and from server
@@ -84,6 +89,10 @@ var Stocks = {
 
         filters : {
             categories : [ ]
+        },
+
+        data : {
+            createStockImage : null
         },
 
         applyFilters(){
@@ -109,7 +118,6 @@ var Stocks = {
         },
 
         init : function(){
-            Stocks.controller.fetchStock();
             Stocks.controller.fetchCategory();
             $("#create-stock-submit").click(Stocks.controller.createStockBtnClicked);
             $("#edit-stock-delete").click(Stocks.controller.deleteStockBtnClicked);
@@ -117,13 +125,32 @@ var Stocks = {
             $("#filter-stock-price").bind("input", Stocks.controller.applyFilters);
             $("#filter-stock-discount").bind("input", Stocks.controller.applyFilters);
             $("#filter-stock-title").bind("input", Stocks.controller.applyFilters);
+            $("#toggle-view-button").click(Stocks.controller.toggleView);
+            $("#stock-table").toggle(false);
+            $("#create-stock-image").change(Stocks.controller.imageSelected);
+            Stocks.controller.applyFilters();
         },
 
-        fetchStock : function(){
-            get("/stocks", function(stocks){
-                Stocks.model.stocks = stocks;
-                Stocks.view.drawStocks(stocks, Stocks.controller.stockRowClicked);
-            });
+        toggleView:function(){
+            var stockGrid = $("#stock-grid");
+            var stockTable = $("#stock-table");
+            stockGrid.toggle();
+            stockTable.toggle();
+        },
+
+        imageSelected:function(){
+            var preview = $('#create-stock-image-preview')[0]; //selects the query named img
+            var file    = $('#create-stock-image')[0].files[0]; //sames as here
+            var reader  = new FileReader();
+            reader.onloadend = function () {
+               preview.src = reader.result;
+               Stocks.controller.data.createStockImage = reader.result;
+            }
+            if (file) {
+               reader.readAsDataURL(file); //reads the data as a URL
+            } else {
+               preview.src = "";
+            }
         },
 
         stockRowClicked : function(e){
@@ -174,6 +201,8 @@ var Stocks = {
 
         createStockBtnClicked : function(){
             var newStock = Stocks.view.getNewStock();
+            newStock.image = Stocks.controller.data.createStockImage;
+
             Stocks.service.create(newStock, function(stockCreated){
                 var stockRow = Stocks.view.addStock(stockCreated);
             });
@@ -205,7 +234,9 @@ var Stocks = {
 
     service : {
         create : function(stock, callback){
-            post("/stocks/create", stock, callback);
+            post("/images/", Stocks.controller.data.createStockImage, function(image){
+
+            });
         },
 
         delete : function(stock, callback){
@@ -221,6 +252,29 @@ var Stocks = {
                  Stocks.model.stocks = stocks;
                  Stocks.view.drawStocks(stocks.content, Stocks.controller.stockRowClicked);
             });
+        }
+    }
+}
+
+
+var Images = {
+
+    model : {
+
+    },
+
+    service : {
+
+        select : function(id, callback){
+            var image = Images.model[id];
+            if(image != null){
+                return image;
+            }else{
+                get("/images/" + id, function(image){
+                    Images.model[id] = image;
+                    callback(image);
+                });
+            }
         }
     }
 }

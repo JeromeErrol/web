@@ -46,5 +46,9 @@ public class ImageService {
         inputStream.close();
         outputStream.close();
     }
+
+    public Image get(Long id){
+        return repository.findOne(id);
+    }
 }
 
