@@ -1,6 +1,6 @@
 package com.market.security;
 
-import com.market.domain.User;
+import com.market.domain.valueobjects.User;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -11,7 +11,7 @@ import java.util.Collection;
 @NoArgsConstructor
 public class CustomUserDetails extends User implements UserDetails {
 
-    public CustomUserDetails(User user){
+    public CustomUserDetails(User user) {
         super(user.getEmail(), user.getPassword());
     }
 
