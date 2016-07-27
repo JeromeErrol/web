@@ -1,7 +1,7 @@
 package com.demo.web.services;
 
-import com.demo.domain.valueobjects.Category;
 import com.demo.domain.repositories.CategoryRepository;
+import com.demo.domain.valueobjects.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.stereotype.Service;

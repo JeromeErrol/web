@@ -1,7 +1,7 @@
 package com.demo.security;
 
-import com.demo.domain.valueobjects.User;
 import com.demo.domain.repositories.UserRepository;
+import com.demo.domain.valueobjects.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

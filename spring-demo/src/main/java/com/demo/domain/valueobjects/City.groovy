@@ -13,6 +13,9 @@ public class City {
     @Column
     private String title;
 
+    @ManyToOne
+    private Country country;
+
 
     String getTitle() {
         return title
@@ -28,5 +31,13 @@ public class City {
 
     void setId(long id) {
         this.id = id
+    }
+
+    Country getCountry() {
+        return country
+    }
+
+    void setCountry(Country country) {
+        this.country = country
     }
 }

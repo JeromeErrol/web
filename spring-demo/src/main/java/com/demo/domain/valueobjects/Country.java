@@ -1,37 +1,27 @@
 package com.demo.domain.valueobjects;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 public class Country {
+
+    @Column
+    private String title;
+
+    @ManyToOne
+    private Continent continent;
 
     @Id
     @GeneratedValue
     @Column
     private long id;
 
-    @Column
-    private String title;
-
-    @OneToMany
-    @Column
-    private List<City> cities;
-
-    public Country(){
+    public Country() {
 
     }
 
     public Country(String title) {
         this.title = title;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getTitle() {
@@ -42,11 +32,11 @@ public class Country {
         this.title = title;
     }
 
-    public List<City> getCities() {
-        return cities;
+    public long getId() {
+        return id;
     }
 
-    public void setCities(List<City> cities) {
-        this.cities = cities;
+    public void setId(long id) {
+        this.id = id;
     }
 }

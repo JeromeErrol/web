@@ -1,8 +1,8 @@
 package com.demo.web.controllers;
 
 
-import com.demo.domain.valueobjects.User;
 import com.demo.domain.repositories.UserRepository;
+import com.demo.domain.valueobjects.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
