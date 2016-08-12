@@ -1,6 +1,6 @@
-package com.demo.web.controllers;
+package com.springbank.controllers;
 
-import com.demo.domain.User;
+import com.springbank.domain.User;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;
 import org.springframework.stereotype.Component;

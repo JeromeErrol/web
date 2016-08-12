@@ -1,6 +1,6 @@
-package com.demo.security;
+package com.springbank.security;
 
-import com.demo.domain.User;
+import com.springbank.domain.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;

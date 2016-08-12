@@ -1,5 +1,7 @@
-package com.demo.domain;
+package com.springbank.domain;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -13,6 +15,7 @@ public class Account {
     @Column
     private double balance;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User owner;
@@ -40,5 +43,8 @@ public class Account {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public Account() {
     }
 }

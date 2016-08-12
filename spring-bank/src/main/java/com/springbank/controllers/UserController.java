@@ -1,9 +1,9 @@
-package com.demo.web.controllers;
+package com.springbank.controllers;
 
 
-import com.demo.repositories.UserRepository;
-import com.demo.domain.User;
-import com.demo.services.AccountService;
+import com.springbank.repositories.UserRepository;
+import com.springbank.domain.User;
+import com.springbank.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;

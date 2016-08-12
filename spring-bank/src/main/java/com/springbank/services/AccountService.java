@@ -1,4 +1,4 @@
-package com.demo.services;
+package com.springbank.services;
 
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;

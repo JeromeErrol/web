@@ -1,6 +1,6 @@
-package com.demo.repositories;
+package com.springbank.repositories;
 
-import com.demo.domain.User;
+import com.springbank.domain.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

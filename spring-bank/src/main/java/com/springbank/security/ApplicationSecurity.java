@@ -1,4 +1,4 @@
-package com.demo.security;
+package com.springbank.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;

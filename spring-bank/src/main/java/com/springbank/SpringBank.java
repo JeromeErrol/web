@@ -1,9 +1,9 @@
-package com.demo;
+package com.springbank;
 
-import com.demo.domain.User;
-import com.demo.domain.UserRole;
-import com.demo.repositories.UserRepository;
-import com.demo.repositories.UserRoleRepository;
+import com.springbank.domain.User;
+import com.springbank.domain.UserRole;
+import com.springbank.repositories.UserRepository;
+import com.springbank.repositories.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

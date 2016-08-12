@@ -1,4 +1,4 @@
-package com.demo.domain;
+package com.springbank.domain;
 
 import javax.persistence.*;
 
