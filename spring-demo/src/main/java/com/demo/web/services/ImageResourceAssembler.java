@@ -1,6 +1,6 @@
 package com.demo.web.services;
 
-import com.demo.domain.valueobjects.Image;
+import com.demo.domain.Image;
 import com.demo.web.controllers.CategoryController;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;

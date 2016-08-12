@@ -1,7 +1,7 @@
 package com.demo.web.services;
 
-import com.demo.domain.repositories.ImageRepository;
-import com.demo.domain.valueobjects.Image;
+import com.demo.repositories.ImageRepository;
+import com.demo.domain.Image;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.stereotype.Service;

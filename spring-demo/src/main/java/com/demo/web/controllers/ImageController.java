@@ -1,6 +1,6 @@
 package com.demo.web.controllers;
 
-import com.demo.domain.valueobjects.Image;
+import com.demo.domain.Image;
 import com.demo.web.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;

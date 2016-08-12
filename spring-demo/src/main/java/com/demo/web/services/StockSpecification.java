@@ -1,6 +1,6 @@
 package com.demo.web.services;
 
-import com.demo.domain.valueobjects.Stock;
+import com.demo.domain.Stock;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;

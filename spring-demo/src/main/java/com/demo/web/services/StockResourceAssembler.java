@@ -1,6 +1,6 @@
 package com.demo.web.services;
 
-import com.demo.domain.valueobjects.Stock;
+import com.demo.domain.Stock;
 import com.demo.web.controllers.StockController;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;

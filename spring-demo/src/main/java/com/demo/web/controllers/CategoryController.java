@@ -1,6 +1,6 @@
 package com.demo.web.controllers;
 
-import com.demo.domain.valueobjects.Category;
+import com.demo.domain.Category;
 import com.demo.web.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;

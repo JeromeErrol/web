@@ -1,6 +1,6 @@
 package com.demo.web.controllers;
 
-import com.demo.domain.valueobjects.Stock;
+import com.demo.domain.Stock;
 import com.demo.web.services.StockSearchCriteria;
 import com.demo.web.services.StockService;
 import org.springframework.beans.factory.annotation.Autowired;

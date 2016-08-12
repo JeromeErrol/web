@@ -1,9 +1,9 @@
 package com.demo.web.controllers;
 
-import com.demo.domain.repositories.CityRepository;
-import com.demo.domain.specifications.CitySpecification;
-import com.demo.domain.valueobjects.City;
-import com.demo.domain.valueobjects.Country;
+import com.demo.repositories.CityRepository;
+import com.demo.specifications.CitySpecification;
+import com.demo.domain.City;
+import com.demo.domain.Country;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

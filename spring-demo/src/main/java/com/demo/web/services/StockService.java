@@ -1,9 +1,9 @@
 package com.demo.web.services;
 
-import com.demo.domain.repositories.ImageRepository;
-import com.demo.domain.repositories.StockRepository;
-import com.demo.domain.valueobjects.Image;
-import com.demo.domain.valueobjects.Stock;
+import com.demo.repositories.ImageRepository;
+import com.demo.repositories.StockRepository;
+import com.demo.domain.Image;
+import com.demo.domain.Stock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.hateoas.Resource;
