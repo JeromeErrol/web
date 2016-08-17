@@ -6,3 +6,4 @@
 --insert into user_role(role, user_id) values ("USER", 2)
 
 insert into account(balance, owner_id) values (50, 1);
+insert into account(balance, owner_id) values (50, 2);

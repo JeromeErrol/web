@@ -3,14 +3,13 @@ package com.springbank.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
-public class Account {
-
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Account extends AbstractEntity {
 
     @Column
     private double balance;
@@ -19,15 +18,6 @@ public class Account {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User owner;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public double getBalance() {
         return balance;
@@ -46,5 +36,13 @@ public class Account {
     }
 
     public Account() {
+    }
+
+    public Account(User owner) {
+        this.owner = owner;
+    }
+
+    public void addToBalance(long amount) {
+        this.balance += amount;
     }
 }

@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 public class AccountResource extends ResourceSupport {
 
@@ -16,8 +17,6 @@ public class AccountResource extends ResourceSupport {
 
     public AccountResource(Account account) {
         this.account = account;
-        this.add(linkTo(AccountController.class, getId()).withRel("accounts"));
-
         Principal principal = new Principal() {
             @Override
             public String getName() {
@@ -26,7 +25,9 @@ public class AccountResource extends ResourceSupport {
 
             ;
         };
-        // this.add(linkTo(methodOn(AccountController.class, getId()).getById(principal, account.getId())).withSelfRel());
+        this.add(linkTo(methodOn(AccountController.class, getId()).getById(principal, account.getId())).withSelfRel());
+        this.add(linkTo(AccountController.class, getId()).withRel("accounts"));
+
     }
 
     public Account getAccount() {
