@@ -1,23 +1,19 @@
 package com.springbank.controllers;
 
 
-import com.springbank.repositories.UserRepository;
 import com.springbank.domain.User;
-import com.springbank.services.AccountService;
+import com.springbank.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
 @RestController
 @RequestMapping(value = "/users")
-public class  UserController {
+public class UserController {
 
     @Autowired
     UserRepository userRepository;
@@ -25,20 +21,10 @@ public class  UserController {
     @Autowired
     UserResourceAssembler personResourceAssembler;
 
-    @Autowired
-    AccountService someService;
 
     @RequestMapping("/user")
-    public Principal user(Principal user){
+    public Principal user(Principal user) {
         return user;
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/hi")
-    public String doSomething(){
-        SecurityContext context = SecurityContextHolder.getContext();
-        Authentication authentication = context.getAuthentication();
-
-        return someService.secure();
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)

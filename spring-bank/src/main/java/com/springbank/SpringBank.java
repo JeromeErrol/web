@@ -21,13 +21,6 @@ import javax.annotation.PostConstruct;
  * <p>
  * Customers can transfer money between their private accounts and make payments to other customer accounts
  * <p>
- * <p>
- * Feature List
- * <p>
- * - Register User - api and ui
- * - Sign in User - api and ui
- * - Create account - api and ui
- * - Create transfer
  **/
 @SpringBootApplication
 public class SpringBank extends ResourceServerConfigurerAdapter {
@@ -45,10 +38,16 @@ public class SpringBank extends ResourceServerConfigurerAdapter {
 
     @PostConstruct
     private void postConstruct() {
-        User user = new User("admin", new BCryptPasswordEncoder().encode("admin"));
-        userRepository.save(user);
-
-        UserRole userRole = new UserRole(user, "ADMIN");
+        User admin = new User("admin", new BCryptPasswordEncoder().encode("admin"));
+        userRepository.save(admin);
+        UserRole userRole = new UserRole(admin, "ADMIN");
         userRoleRepository.save(userRole);
+        System.out.println("creating user admin with password " + new BCryptPasswordEncoder().encode("admin"));
+
+        User customer = new User("foo", new BCryptPasswordEncoder().encode("bar"));
+        userRepository.save(customer);
+        UserRole customerUserRole = new UserRole(customer, "USER");
+        userRoleRepository.save(userRole);
+        System.out.println("creating user foo with password " + new BCryptPasswordEncoder().encode("bar"));
     }
 }
