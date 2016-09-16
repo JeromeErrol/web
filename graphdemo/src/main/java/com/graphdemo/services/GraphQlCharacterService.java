@@ -1,6 +1,7 @@
 package com.graphdemo.services;
 
 import com.graphdemo.QueryService;
+import com.graphdemo.model.Character;
 import com.graphdemo.model.ItemType;
 import com.graphdemo.repositories.CharacterRepository;
 import graphql.GraphQL;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
+import java.util.stream.Collectors;
 
 import static graphql.Scalars.GraphQLBigInteger;
 import static graphql.Scalars.GraphQLString;
@@ -44,9 +46,9 @@ public class GraphQlCharacterService implements QueryService {
                         .name("value")
                         .build())
                 .field(newFieldDefinition()
-                .type(itemType)
-                .name("itemType")
-                .build())
+                        .type(itemType)
+                        .name("itemType")
+                        .build())
                 .build();
 
         GraphQLObjectType hero = newObject()
@@ -66,6 +68,21 @@ public class GraphQlCharacterService implements QueryService {
                 .field(newFieldDefinition()
                         .type(new GraphQLList(item))
                         .name("items")
+                        .argument(newArgument()
+                                .name("itemType")
+                                .type(GraphQLString)
+                                .build())
+                        .dataFetcher(new DataFetcher() {
+                            @Override
+                            public Object get(DataFetchingEnvironment environment) {
+                                String itemType = (String) environment.getArguments().get("itemType");
+                                if (itemType != null) {
+                                    Character character = (Character) environment.getSource();
+                                    return character.getItems().stream().filter(item1 -> item1.getItemType().toString().equalsIgnoreCase(itemType)).collect(Collectors.toList());
+                                }
+                                return null;
+                            }
+                        })
                         .build())
                 .build();
 
