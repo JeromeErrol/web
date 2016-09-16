@@ -10,14 +10,14 @@ public class Character {
     private int id;
     private String name;
     private int age;
+    private List<Item> items;
 
-    private List<Character> friends;
 
     public Character(String name, int age) {
         this.id = ID_COUNT++;
         this.name = name;
         this.age = age;
-        this.friends = new ArrayList<>();
+        this.items = new ArrayList<>();
     }
 
     public int getId() {
@@ -32,7 +32,7 @@ public class Character {
         return age;
     }
 
-    public List<Character> getFriends() {
-        return friends;
+    public List<Item> getItems() {
+        return items;
     }
 }

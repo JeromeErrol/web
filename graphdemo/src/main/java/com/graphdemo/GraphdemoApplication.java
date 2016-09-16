@@ -1,6 +1,8 @@
 package com.graphdemo;
 
 import com.graphdemo.model.Character;
+import com.graphdemo.model.Item;
+import com.graphdemo.model.ItemType;
 import com.graphdemo.repositories.CharacterRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,8 +26,10 @@ public class GraphdemoApplication {
         Character bill = new Character("Bill", 15);
         Character mary = new Character("Mary", 30);
 
-        jerome.getFriends().add(bill);
-        jerome.getFriends().add(mary);
+        jerome.getItems().add(new Item("sword", 10, ItemType.EQUIPPABLE));
+        jerome.getItems().add(new Item("shield", 5, ItemType.EQUIPPABLE));
+        jerome.getItems().add(new Item("Health Potion", 1, ItemType.CONSUMABLE));
+        jerome.getItems().add(new Item("Mana Potion", 1, ItemType.CONSUMABLE));
 
         return new CharacterRepository(Arrays.asList(jerome, bill, mary));
     }

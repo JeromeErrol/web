@@ -1,6 +1,7 @@
 package com.graphdemo.services;
 
 import com.graphdemo.QueryService;
+import com.graphdemo.model.ItemType;
 import com.graphdemo.repositories.CharacterRepository;
 import graphql.GraphQL;
 import graphql.schema.*;
@@ -12,6 +13,7 @@ import java.math.BigInteger;
 import static graphql.Scalars.GraphQLBigInteger;
 import static graphql.Scalars.GraphQLString;
 import static graphql.schema.GraphQLArgument.newArgument;
+import static graphql.schema.GraphQLEnumType.newEnum;
 import static graphql.schema.GraphQLFieldDefinition.newFieldDefinition;
 import static graphql.schema.GraphQLObjectType.newObject;
 
@@ -24,6 +26,28 @@ public class GraphQlCharacterService implements QueryService {
     private CharacterRepository characterRepository;
 
     public GraphQlCharacterService() {
+
+        GraphQLEnumType itemType = newEnum()
+                .name("itemType")
+                .value("CONSUMABLE", ItemType.CONSUMABLE)
+                .value("EQUIPPABLE", ItemType.EQUIPPABLE)
+                .build();
+
+        GraphQLObjectType item = newObject()
+                .name("item")
+                .field(newFieldDefinition()
+                        .type(GraphQLString)
+                        .name("name")
+                        .build())
+                .field(newFieldDefinition()
+                        .type(GraphQLBigInteger)
+                        .name("value")
+                        .build())
+                .field(newFieldDefinition()
+                .type(itemType)
+                .name("itemType")
+                .build())
+                .build();
 
         GraphQLObjectType hero = newObject()
                 .name("hero")
@@ -40,8 +64,8 @@ public class GraphQlCharacterService implements QueryService {
                         .name("age")
                         .build())
                 .field(newFieldDefinition()
-                        .type(GraphQlList)
-                        .name("friends")
+                        .type(new GraphQLList(item))
+                        .name("items")
                         .build())
                 .build();
 
@@ -72,21 +96,4 @@ public class GraphQlCharacterService implements QueryService {
     public Object query(String request) {
         return graphQL.execute(request).getData();
     }
-
-    public static GraphQLScalarType GraphQlList = new GraphQLScalarType("List", "List", new Coercing() {
-        @Override
-        public Object serialize(Object input) {
-            return input;
-        }
-
-        @Override
-        public Object parseValue(Object input) {
-            return null;
-        }
-
-        @Override
-        public Object parseLiteral(Object input) {
-            return null;
-        }
-    });
 }
