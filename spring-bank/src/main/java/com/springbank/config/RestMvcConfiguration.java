@@ -1,7 +1,7 @@
 package com.springbank.config;
 
 import com.springbank.domain.Account;
-import com.springbank.domain.User;
+import com.springbank.domain.AccountHolder;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
@@ -14,6 +14,6 @@ public class RestMvcConfiguration extends RepositoryRestConfigurerAdapter {
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
         config.setBasePath("/");
-        config.exposeIdsFor(Account.class, User.class);
+        config.exposeIdsFor(Account.class, AccountHolder.class);
     }
 }

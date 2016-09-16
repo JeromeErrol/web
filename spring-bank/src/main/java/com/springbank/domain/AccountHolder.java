@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Entity
 @Table
-public class User {
+public class AccountHolder {
 
     @Id
     @GeneratedValue
@@ -25,7 +25,7 @@ public class User {
     private Set<UserRole> userRoles;
 
 
-    public User(String email, String password) {
+    public AccountHolder(String email, String password) {
         this.username = email;
         this.password = password;
     }
@@ -54,7 +54,7 @@ public class User {
         this.password = password;
     }
 
-    public User() {
+    public AccountHolder() {
 
     }
 }

@@ -1,7 +1,7 @@
 package com.springbank;
 
 import com.springbank.domain.Account;
-import com.springbank.domain.User;
+import com.springbank.domain.AccountHolder;
 import com.springbank.domain.UserRole;
 import com.springbank.repositories.AccountRepository;
 import com.springbank.repositories.UserRepository;
@@ -9,11 +9,13 @@ import com.springbank.repositories.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 import javax.annotation.PostConstruct;
+
 
 /***
  * Bank has customers
@@ -44,7 +46,7 @@ public class SpringBank extends ResourceServerConfigurerAdapter {
 
     @PostConstruct
     private void postConstruct() {
-        User admin = new User("admin", new BCryptPasswordEncoder().encode("admin"));
+        AccountHolder admin = new AccountHolder("admin", new BCryptPasswordEncoder().encode("admin"));
         userRepository.save(admin);
         UserRole userRole = new UserRole(admin, "ADMIN");
         userRoleRepository.save(userRole);
@@ -54,8 +56,7 @@ public class SpringBank extends ResourceServerConfigurerAdapter {
         adminAccount.setBalance(500);
         accountRepository.save(adminAccount);
 
-
-        User customer = new User("foo", new BCryptPasswordEncoder().encode("bar"));
+        AccountHolder customer = new AccountHolder("foo", new BCryptPasswordEncoder().encode("bar"));
         userRepository.save(customer);
         UserRole customerUserRole = new UserRole(customer, "USER");
         userRoleRepository.save(userRole);

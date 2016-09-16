@@ -11,14 +11,14 @@ public class UserRole {
     private Long id;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "account_holder_id")
+    private AccountHolder accountHolder;
 
     @Column
     private String role;
 
-    public UserRole(User user, String role) {
-        this.user = user;
+    public UserRole(AccountHolder accountHolder, String role) {
+        this.accountHolder = accountHolder;
         this.role = role;
     }
 

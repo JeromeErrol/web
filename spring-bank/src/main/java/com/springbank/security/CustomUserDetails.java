@@ -1,19 +1,19 @@
 package com.springbank.security;
 
-import com.springbank.domain.User;
+import com.springbank.domain.AccountHolder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
-public class CustomUserDetails extends User implements UserDetails {
+public class CustomUserDetails extends AccountHolder implements UserDetails {
 
-    private User user;
+    private AccountHolder accountHolder;
 
-    public CustomUserDetails(User user) {
-        super(user.getUsername(), user.getPassword());
-        this.user = user;
+    public CustomUserDetails(AccountHolder accountHolder) {
+        super(accountHolder.getUsername(), accountHolder.getPassword());
+        this.accountHolder = accountHolder;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class CustomUserDetails extends User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return accountHolder.getUsername();
     }
 
     @Override

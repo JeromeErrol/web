@@ -3,7 +3,7 @@ package com.springbank.controllers;
 import com.springbank.domain.Account;
 import com.springbank.domain.AccountTransaction;
 import com.springbank.domain.BaseAccountTransaction;
-import com.springbank.domain.User;
+import com.springbank.domain.AccountHolder;
 import com.springbank.exceptions.AccountOwnerException;
 import com.springbank.repositories.AccountRepository;
 import com.springbank.repositories.AccountTransactionRepository;
@@ -36,8 +36,8 @@ public class TransactionController {
 
         if (source != null) {
             if (target != null) {
-                User user = userService.get(principal);
-                if (source.getOwner() == user) {
+                AccountHolder accountHolder = userService.get(principal);
+                if (source.getOwner() == accountHolder) {
                     AccountTransaction accountTransaction = new AccountTransaction(baseAccountTransaction.getAmount(), source, target);
                     accountTransactionRepository.save(accountTransaction);
                 } else {

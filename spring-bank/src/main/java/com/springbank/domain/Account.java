@@ -17,7 +17,7 @@ public class Account extends AbstractEntity {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User owner;
+    private AccountHolder owner;
 
     public double getBalance() {
         return balance;
@@ -27,22 +27,22 @@ public class Account extends AbstractEntity {
         this.balance = balance;
     }
 
-    public User getOwner() {
+    public AccountHolder getOwner() {
         return owner;
     }
 
-    public void setOwner(User owner) {
+    public void setOwner(AccountHolder owner) {
         this.owner = owner;
     }
 
     public Account() {
     }
 
-    public Account(User owner) {
+    public Account(AccountHolder owner) {
         this.owner = owner;
     }
 
-    public void addToBalance(long amount) {
+    public void addToBalance(double amount) {
         this.balance += amount;
     }
 }

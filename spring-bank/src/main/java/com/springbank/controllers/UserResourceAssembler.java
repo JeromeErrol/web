@@ -1,6 +1,6 @@
 package com.springbank.controllers;
 
-import com.springbank.domain.User;
+import com.springbank.domain.AccountHolder;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;
 import org.springframework.stereotype.Component;
@@ -8,12 +8,12 @@ import org.springframework.stereotype.Component;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @Component
-public class UserResourceAssembler implements ResourceAssembler<User, Resource<User>> {
+public class UserResourceAssembler implements ResourceAssembler<AccountHolder, Resource<AccountHolder>> {
     @Override
-    public Resource<User> toResource(User user) {
-        Resource<User> resource = new Resource<User>(user);
-        resource.add(linkTo(UserController.class).slash(user.getId()).withSelfRel());
-        resource.add(linkTo(UserController.class).slash(user.getId()).slash("entries").withRel("entries"));
+    public Resource<AccountHolder> toResource(AccountHolder accountHolder) {
+        Resource<AccountHolder> resource = new Resource<AccountHolder>(accountHolder);
+        resource.add(linkTo(UserController.class).slash(accountHolder.getId()).withSelfRel());
+        resource.add(linkTo(UserController.class).slash(accountHolder.getId()).slash("entries").withRel("entries"));
         return resource;
     }
 }

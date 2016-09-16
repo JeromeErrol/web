@@ -1,7 +1,7 @@
 package com.springbank.security;
 
+import com.springbank.domain.AccountHolder;
 import com.springbank.repositories.UserRepository;
-import com.springbank.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,9 +16,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
-        if (user != null) {
-            return new CustomUserDetails(user);
+        AccountHolder accountHolder = userRepository.findByUsername(username);
+        if (accountHolder != null) {
+            return new CustomUserDetails(accountHolder);
         }
         throw new UsernameNotFoundException(username);
     }

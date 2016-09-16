@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = SpringBank.class)
 @WebAppConfiguration
-public class DemoApplicationTests {
+public class SpringBankTests {
 
     @Autowired
     private WebApplicationContext context;
@@ -34,10 +34,4 @@ public class DemoApplicationTests {
     public void test() throws Exception {
         mvc.perform(get("/countries")).andExpect(status().isOk());
     }
-
-    @Test
-    public void test2() throws Exception {
-        mvc.perform(get("api/countries2")).andExpect(status().isOk());
-    }
-
 }
